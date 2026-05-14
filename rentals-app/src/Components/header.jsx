@@ -1,35 +1,25 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Header from "./Components/Header";
-import Home from "./Pages/Home";
-import Search from "./Pages/Search";
-import Login from "./Pages/Login";
-import Rentals from "./Pages/Rentals";
+import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 
-function AppLayout() {
+function Header() {
   return (
-    <div className="App">
-      <Header />
-      <main style={{ padding: "1rem" }}>
-        <Outlet />
-      </main>
-    </div>
+    <>
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand as={Link} to="/">Australian Rentals</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/"> Home</Nav.Link>
+            <Nav.Link as={Link} to="/">Login</Nav.Link>
+            <Nav.Link as={Link} to="/">Rentals</Nav.Link>
+            <Nav.Link as={Link} to="/">Search</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+    </>
   );
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    Component: AppLayout,
-    children: [
-      { index: true, Component: Home },
-      { path: "search", Component: Search },
-      { path: "rentals", Component: Rentals },
-      { path: "login", Component: Login },
-    ],
-  },
-]);
-
-export default function App() {
-  return <RouterProvider router={router} />;
-}
+export default Header;
