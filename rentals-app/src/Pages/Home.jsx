@@ -1,8 +1,7 @@
 import { useState } from "react";
-import "./App.css";
 
 function fetchRental() {
-  const url = `http://4.237.58.241:3000/`;
+  const url = `http://4.237.58.241:3000/property/1`;
   return fetch(url)
     .then((res) => res.json());
 }
