@@ -8,13 +8,13 @@ function Header() {
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand as={Link} to="/">Australian Rentals</Navbar.Brand>
+        <Container fluid>
+          <Navbar.Brand as={Link} to="/">AusRentals4U</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/"> Home</Nav.Link>
+            <Nav.Link as={Link} to="/About">About</Nav.Link>
             <Nav.Link as={Link} to="/Login">Login</Nav.Link>
-            <Nav.Link as={Link} to="/Rentals">Rentals</Nav.Link>
-            <Nav.Link as={Link} to="/Search">Search</Nav.Link>
+            <Nav.Link as={Link} to="/Search">Rental Search</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

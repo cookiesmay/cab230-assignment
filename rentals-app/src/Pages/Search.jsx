@@ -1,30 +1,27 @@
 import { useState } from "react";
-import { useRentals } from "../API/api.js";
+import { Container } from "react-bootstrap";
 import SearchBar from "../Components/SearchBar.jsx";
-import Rental from "../Components/Rentals.jsx";
+import Rentals from "../Components/Rentals.jsx";
 
 function Search() {
-  const [search, setSearch] = useState("");
-  const { loading, rentals, error } = useRentals(search);
+  // 1. Change state from a string ("") to an empty object ({})
+  const [query, setQuery] = useState({}); 
 
+  // 2. This function now receives the full filters object from SearchBar
+  const handleSearch = (newFilters) => {
+    setQuery(newFilters);
+  };
+  
   return (
-    <div className="Search">
-      <h1>Rental Search</h1>
-      
-        <SearchBar onSubmit={setSearch} />
-        <hr />
-      {loading && <p>Loading...</p>}
-      {loading && <p>Loading {search}...</p>}
-     {error && <p className="text-danger">Error: {error.message}</p>}
-      {!loading && !error && rentals.length === 0 && <p>No rentals found.</p>}
-      {!loading && !error && rentals.length > 0 && (
-        <div>
-          {rentals.map((rental) => (
-            <Rental key={rental.id} {...rental} />
-          ))}
-        </div>
-      )}
-    </div>
+    <Container fluid>
+      <div className="Search">
+        <h1>Rental Search</h1>
+        <SearchBar onSubmit={handleSearch} />
+         <hr />
+        <Rentals searchParams={query} />
+      </div>
+    </Container>
   );
 }
+
 export default Search;
