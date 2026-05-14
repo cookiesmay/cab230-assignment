@@ -1,21 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRentals } from "../API/api.js";
+import SearchBar from "../Components/SearchBar.jsx";
+import Rental from "../Components/Rentals.jsx";
 
 function Search() {
-  const [rental, setRental] = useState([]);
-  useEffect(()=> {
-     const url = `http://4.237.58.241:3000/rentals/search`;
-     fetch(url)
-    .then((res) => res.json())
-    .then((json) => setRental(json.data)); // Using .data as per your API info
-}, []);
+  const [search, setSearch] = useState("");
+  const { loading, rentals, error } = useRentals(search);
+
   return (
     <div className="Search">
-      <h1>Rental search</h1>
-      <ul>
-      {rental.map((rental) => (
-        <li key={rental.id}>{rental.title}</li>
-      ))}
-    </ul>
+      <h1>Rental Search</h1>
+      
+        <SearchBar onSubmit={setSearch} />
+        <hr />
+      {loading && <p>Loading...</p>}
+      {loading && <p>Loading {search}...</p>}
+     {error && <p className="text-danger">Error: {error.message}</p>}
+      {!loading && !error && rentals.length === 0 && <p>No rentals found.</p>}
+      {!loading && !error && rentals.length > 0 && (
+        <div>
+          {rentals.map((rental) => (
+            <Rental key={rental.id} {...rental} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
