@@ -5,16 +5,16 @@ import { rentalCall } from "../API/api.js";
 import { useState, useEffect } from 'react';
 
 const columns = [
-  { headerName: "Title", field: "title", sortable: true, filter: true, flex: 2 },
-  { headerName: "Rent", field: "rent", sortable: true, filter: "agNumberColumnFilter", flex: 2 },
-  { headerName: "Property Type", field: "propertyType", sortable: true, filter: true, flex: 2 },
-  { headerName: "Postcode", field: "postcode", sortable: true, filter: "agNumberColumnFilter", flex: 2 },
-  { headerName: "State", field: "state", sortable: true, filter: true, flex: 2 },
-  { headerName: "Suburb", field: "suburb", sortable: true, filter: true, flex: 2 },
-  { headerName: "Bathrooms", field: "bathrooms", sortable: true, filter: "agNumberColumnFilter", flex: 2 },
-  { headerName: "Bedrooms", field: "bedrooms", sortable: true, filter: "agNumberColumnFilter", flex: 2 },
-  { headerName: "Parks", field: "parkingSpaces", sortable: true, filter: "agNumberColumnFilter", flex: 2 },
-  { headerName: "Rating", field: "averageRating", sortable: true, filter: "agNumberColumnFilter", flex: 2 }
+  { headerName: "Title", field: "title", sortable: true, flex: 3 },
+  { headerName: "Rent", field: "rent", sortable: true, flex: 1 },
+  { headerName: "Property Type", field: "propertyType", sortable: true, flex: 2 },
+  { headerName: "Postcode", field: "postcode", sortable: true, flex: 1 },
+  { headerName: "State", field: "state", sortable: true, flex: 1 },
+  { headerName: "Suburb", field: "suburb", sortable: true, flex: 2 },
+  { headerName: "Bathrooms", field: "bathrooms", sortable: true, flex: 1 },
+  { headerName: "Bedrooms", field: "bedrooms", sortable: true, flex: 1 },
+  { headerName: "Parks", field: "parkingSpaces", sortable: true, flex: 1 },
+  { headerName: "Rating", field: "averageRating", sortable: true, flex: 1 }
 ];
 
 
@@ -22,7 +22,6 @@ function Rentals({searchParams}) {
     const [gridApi, setGridApi] = useState(null);
     useEffect(() => {
     if (gridApi) {
-      // This clears the table and forces a fresh fetch from Page 1
       gridApi.purgeInfiniteCache(); 
     }
   }, [searchParams, gridApi]);
@@ -37,10 +36,8 @@ function Rentals({searchParams}) {
 
         rentalCall(searchParams, pageNum)
           .then(response => {
-            const rows = response.data; // The array of rentals
-            const totalRows = response.pagination.total; // Total in database
-
-            // Passing totalRows makes the footer say "1 to 10 of 194"
+            const rows = response.data; 
+            const totalRows = response.pagination.total; 
             getRowsParams.successCallback(rows, totalRows);
           })
           .catch(() => getRowsParams.failCallback());
@@ -49,16 +46,15 @@ function Rentals({searchParams}) {
 
     params.api.setGridOption('datasource', dataSource);
   };
-  
+
   return (
   <Container fluid className="mt-3">
-    <h1>Rental Results </h1>
-    <p>
-    </p>
+    <div className="d-flex flex-column flex-grow-1 px-3 py-2" style={{ minHeight: 0 }}></div>
+    <h4>Rental Results </h4>
     <AgGridProvider modules={[AllCommunityModule]}>
       <div
-      className="ag-theme-balham"
-        style={{ height: "70vh", width: "100%" }}
+      className="ag-theme-balham flex-grow-1 shadow-sm rounded" 
+        style={{ width: "100%", height: 0, minHeight: "400px" }}
       >
         <AgGridReact
         theme={themeBalham}

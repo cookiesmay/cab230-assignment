@@ -22,7 +22,7 @@ export default function SearchBar({onSubmit}) {
               name="suburb" 
               value={filters.suburb} 
               onChange={handleInputChange} 
-              placeholder="e.g. Brisbane" 
+              placeholder="e.g. Sydney" 
             />
           </Col>
           <Col md={2}>
