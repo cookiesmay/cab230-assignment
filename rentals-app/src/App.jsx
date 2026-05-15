@@ -9,18 +9,24 @@ import Rentals from "./Components/Rentals";
 import ErrorPage from "./Pages/ErrorPage.jsx";
 import Register from "./Pages/Register";
 import RatedRentals from "./Pages/RatedRentals";
+import RentalDetails from "./Pages/RentalDetails";
+import { useState } from "react";
 
 function AppLayout() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
   return (
     <div className="App d-flex flex-column min-vh-100">
-      <Header />
+      <Header token={token} setToken={setToken} />
       <main className="flex-grow-1">
-        <Outlet />
+        <Outlet context={{ token, setToken }} />
       </main>
+      
       <Footer />
     </div>
   );
 }
+
 
 const router = createBrowserRouter([
   {
@@ -35,6 +41,7 @@ const router = createBrowserRouter([
       { path: "login", Component: Login },
       { path: "register", Component: Register }, 
       { path: "rated", Component: RatedRentals },
+      { path: "rentals/:id", Component: RentalDetails },
     ],
   },
 ]);

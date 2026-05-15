@@ -29,7 +29,7 @@ function Home() {
             We are proud to have built a website that can meet all your needs 
             for finding properties near you, that suit you. Get searching now!!!
           </p>
-          <div className="my-5">
+          <div className="my-5 mx-auto" style={{ maxWidth: "1100px" }}> 
             <SearchBar onSubmit={handleQuickSearch} />
           </div>
           <p>
