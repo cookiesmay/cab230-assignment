@@ -134,6 +134,7 @@ export async function rentalCall(filters = {}, pageNum = 1) {
   const url = `${API_URL}/rentals/search?${params.toString()}`;
   const response = await fetch(url);
   return response.json();
+  
 }
 
 export function useRentals(search, page) {

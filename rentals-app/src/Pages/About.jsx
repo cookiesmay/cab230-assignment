@@ -114,7 +114,6 @@ function About() {
                     found in the search results.
                   </p>
                   <div className="text-center mb-4">
-                    {/* Reusing the detail photo here since it usually contains the review stars */}
                     <img src={detailPhoto} alt="Review Interface" className="img-fluid border border-dark rounded shadow-sm" />
                   </div>
                   <p>

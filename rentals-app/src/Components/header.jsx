@@ -20,10 +20,8 @@ export default function Header({ token, setToken }) {
           <Nav className="me-auto">
             <Nav.Link as={NavLink} to="/search">Search</Nav.Link>
             
-            {/* 1. Added About link back in */}
             <Nav.Link as={NavLink} to="/about">About</Nav.Link>
             
-            {/* 2. Rated Rentals only shows if the token exists */}
             {token && (
               <Nav.Link as={NavLink} to="/rated">Rated Rentals</Nav.Link>
             )}

@@ -24,7 +24,7 @@ export default function RentalDetails() {
     setUserRating(val);
     await postRating(id, val);
     alert("Rating submitted!");
-  };
+  };``
 
   if (!property) return <Container className="mt-5">Loading...</Container>;
 

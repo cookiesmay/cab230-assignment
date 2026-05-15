@@ -79,12 +79,12 @@ export default function SearchBar({ onSubmit, initialValues }) {
 
     finalFilters.suburb = "";
     finalFilters.state = "";
-    finalFilters.postcode = "";
+    finalFilters.postcode = filters.postcode || "";
 
     if (/^\d{4}$/.test(input)) {
       finalFilters.postcode = input;
     } else {
-      const matchedState = availableStates.find(
+      const matchedState = (availableStates || []).find(
         s => String(s).toLowerCase() === input.toLowerCase()
       );
       
@@ -109,19 +109,34 @@ export default function SearchBar({ onSubmit, initialValues }) {
               className="rounded-0 border-dark shadow-none" 
               value={filters.location} 
               onChange={handleInputChange} 
-              placeholder="Suburb, Postcode..." 
+              placeholder="Suburb, State, Postcode..." 
             />
           </Col>
 
           <Col lg={2}>
             <Form.Label className="small fw-bold text-uppercase">Sort By</Form.Label>
-            <Form.Select name="sortBy" className="rounded-0 border-dark shadow-none" value={filters.sortBy} onChange={handleInputChange}>
+            <Form.Select 
+              name="sortBy" 
+              className="rounded-0 border-dark" 
+              value={filters.sortBy || "id"} 
+              onChange={handleInputChange}
+            >
+              <option value="id">ID</option>
+              <option value="title">Title</option>
               <option value="rent">Rent</option>
-              <option value="averageRating">Rating</option>
-              <option value="bedrooms">Beds</option>
+              <option value="propertyType">Property Type</option>
               <option value="suburb">Suburb</option>
+              <option value="state">State</option>
+              <option value="postcode">Postcode</option>
+              <option value="bedrooms">Bedrooms</option>
+              <option value="bathrooms">Bathrooms</option>
+              <option value="parkingSpaces">Parking</option>
+              <option value="averageRating">Rating</option>
+              <option value="numRatings">Review Count</option>
+              <option value="latitude">Latitude</option>
+              <option value="longitude">Longitude</option>
             </Form.Select>
-          </Col>
+            </Col>
 
 
           <Col lg={2}>
@@ -222,7 +237,18 @@ export default function SearchBar({ onSubmit, initialValues }) {
                 </div>
               </Col>
             </Row>
-
+            <Col md={4}>
+              <Form.Label className="small fw-bold uppercase">Manual Postcode</Form.Label>
+              <Form.Control 
+                name="postcode" 
+                type="text" 
+                maxLength="4" 
+                className="rounded-0 border-dark" 
+                value={filters.postcode || ""} 
+                onChange={handleInputChange} 
+                placeholder="e.g. 4000" 
+              />
+            </Col>
             <Row className="g-3">
               <Col md={4}>
                 <Form.Label className="small fw-bold">RATING RANGE (★)</Form.Label>

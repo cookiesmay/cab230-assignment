@@ -10,15 +10,16 @@ const columns = [
   { headerName: "Rent", field: "rent", flex: 1 },
   { headerName: "Type", field: "propertyType", flex: 2 },
   { headerName: "Suburb", field: "suburb", flex: 2 },
+  { headerName: "Postcode", field: "postcode", flex: 2 },
   { headerName: "State", field: "state", flex: 1 },
   { headerName: "Beds", field: "bedrooms", flex: 1 },
   { headerName: "Baths", field: "bathrooms", flex: 1 },
-  { headerName: "Rating", field: "averageRating", flex: 1 }
+  { headerName: "Rating", field: "averageRating", flex: 1 },
+  { headerName: "Reviews", field: "numRatings", sortable: true, flex: 1 }
 ];
 
 function Rentals({ searchParams = {} }) {
   const [gridApi, setGridApi] = useState(null);
-  const { location, minRent, maxRent, propertyType, sortBy, sortOrder } = searchParams;
   const navigate = useNavigate();
 
   const createDatasource = useCallback((currentParams) => {
@@ -48,12 +49,11 @@ function Rentals({ searchParams = {} }) {
 
   useEffect(() => {
     if (gridApi) {
-      console.log("Filter change detected. Resetting grid data...");
       const newDataSource = createDatasource(searchParams);
       gridApi.setGridOption('datasource', newDataSource);
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, minRent, maxRent, propertyType, sortBy, sortOrder, gridApi, createDatasource]);
+  },[JSON.stringify(searchParams), gridApi, createDatasource]);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -64,7 +64,6 @@ function Rentals({ searchParams = {} }) {
     <Container fluid className="mt-3">
       <h4 className="fw-bold mb-3 uppercase">Rental Results</h4>
       <AgGridProvider modules={[AllCommunityModule]}>
-        {/* Set a concrete height here (e.g., 600px) to ensure it doesn't collapse */}
         <div className="ag-theme-balham shadow-sm border border-2 border-dark" 
              style={{ width: "100%", height: "600px" }}>
           <AgGridReact
