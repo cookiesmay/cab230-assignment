@@ -17,19 +17,17 @@ function Header() {
     <Navbar bg="dark" variant="dark" expand="lg" className="py-3 border-bottom border-secondary">
       <Container> 
         
-        {/* 1. BRAND */}
         <Navbar.Brand as={NavLink} to="/" className="fw-bold me-3">
           AusRentals4U
         </Navbar.Brand>
 
-        {/* 2. THE LITTLE LINE */}
         <div className="vr text-secondary d-none d-lg-block me-2" style={{ width: '2px', alignSelf: 'center', height: '24px' }} />
 
         <Navbar.Toggle aria-controls="header-nav" />
         
         <Navbar.Collapse id="header-nav">
           
-          {/* 3. MAIN NAV (me-auto pushes everything after this to the right) */}
+
           <Nav className="me-auto align-items-center"> 
             <NavLink to="/" className={navLinkClass}>Home</NavLink>
             <NavLink to="/about" className={navLinkClass}>About</NavLink>
@@ -39,7 +37,7 @@ function Header() {
             )}
           </Nav>
 
-          {/* 4. AUTH BUTTONS (Anchored to the right) */}
+
           <Nav className="align-items-center"> 
             {!isLoggedIn ? (
               <>

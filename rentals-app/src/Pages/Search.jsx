@@ -2,24 +2,26 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import SearchBar from "../Components/SearchBar.jsx";
 import Rentals from "../Components/Rentals.jsx";
+import { useLocation } from "react-router-dom";
 
 function Search() {
-  // 1. Change state from a string ("") to an empty object ({})
-  const [query, setQuery] = useState({}); 
+  const location = useLocation(); 
+  const [query, setQuery] = useState(location.state?.initialFilters || {});
 
-  // 2. This function now receives the full filters object from SearchBar
+
   const handleSearch = (newFilters) => {
     setQuery(newFilters);
   };
   
   return (
-    <Container fluid>
-      <div className="Search">
-        <h1>Rental Search</h1>
-        <SearchBar onSubmit={handleSearch} />
-         <hr />
-        <Rentals searchParams={query} />
-      </div>
+    <Container className="py-4">
+      <SearchBar 
+        key={JSON.stringify(query)} 
+        onSubmit={handleSearch} 
+        initialValues={query} 
+      />
+      <hr className="my-4 opacity-25" />
+      <Rentals searchParams={query} />
     </Container>
   );
 }

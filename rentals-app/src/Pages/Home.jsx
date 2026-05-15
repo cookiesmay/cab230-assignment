@@ -1,15 +1,13 @@
-import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import homeImg from "../assets/homePagePhoto.jpg";
+import SearchBar from "../Components/SearchBar.jsx";
 
 
 function Home() {
-  const [suburb, setSuburb] = useState("");
   const navigate = useNavigate();
-  const handleQuickSearch = (e) => {
-    e.preventDefault();
-    navigate("/search", { state: { initialSuburb: suburb } });
+  const handleQuickSearch = (filters) => {
+    navigate("/search", { state: { initialFilters: filters } });
   };
   return (
     <Container className="py-5 text-center">
@@ -31,18 +29,9 @@ function Home() {
             We are proud to have built a website that can meet all your needs 
             for finding properties near you, that suit you. Get searching now!!!
           </p>
-
-          <Form onSubmit={handleQuickSearch} className="d-flex gap-2 justify-content-center mx-auto" style={{ maxWidth: "500px" }}>
-            <Form.Control
-              type="text"
-              placeholder="Enter suburb..."
-              value={suburb}
-              onChange={(e) => setSuburb(e.target.value)}
-              style={{ maxWidth: "450px" }}
-            />
-            <Button variant="primary" type="submit">Search</Button>
-          </Form>
-
+          <div className="my-5">
+            <SearchBar onSubmit={handleQuickSearch} />
+          </div>
           <p>
             First time here? Click{" "}
             <Link 

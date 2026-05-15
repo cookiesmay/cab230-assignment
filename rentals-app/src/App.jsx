@@ -5,7 +5,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Search from "./Pages/Search";
 import Login from "./Pages/Login";
-import Rentals from "./Pages/Rentals";
+import Rentals from "./Components/Rentals";
 import ErrorPage from "./Pages/ErrorPage.jsx";
 import Register from "./Pages/Register";
 import RatedRentals from "./Pages/RatedRentals";

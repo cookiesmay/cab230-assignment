@@ -20,32 +20,32 @@ const columns = [
 
 function Rentals({searchParams}) {
     const [gridApi, setGridApi] = useState(null);
-    useEffect(() => {
-    if (gridApi) {
-      gridApi.purgeInfiniteCache(); 
+   const createDatasource = (paramsToUse) => ({
+    getRows: (params) => {
+      const pageNum = Math.floor(params.startRow / 10) + 1;
+      console.log("Fetching for:", paramsToUse);
+      rentalCall(paramsToUse, pageNum)
+        .then(response => {
+          params.successCallback(response.data, response.pagination.total);
+        })
+        .catch(() => params.failCallback());
     }
-  }, [searchParams, gridApi]);
-    
-    
+  });
+
+
+    useEffect(() => {
+        if (gridApi) {
+        console.log("Params changed, purging cache...");
+        const newDataSource = createDatasource(searchParams);
+        gridApi.setGridOption('datasource', newDataSource);
+        gridApi.purgeInfiniteCache(); 
+        }
+    }, [searchParams, gridApi]);
+
     const onGridReady = (params) => {
-    setGridApi(params.api);
-
-    const dataSource = {
-      getRows: (getRowsParams) => {
-        const pageNum = (getRowsParams.startRow / 10) + 1;
-
-        rentalCall(searchParams, pageNum)
-          .then(response => {
-            const rows = response.data; 
-            const totalRows = response.pagination.total; 
-            getRowsParams.successCallback(rows, totalRows);
-          })
-          .catch(() => getRowsParams.failCallback());
-      }
+        setGridApi(params.api);
+        params.api.setGridOption('datasource', createDatasource(searchParams));
     };
-
-    params.api.setGridOption('datasource', dataSource);
-  };
 
   return (
   <Container fluid className="mt-3">
