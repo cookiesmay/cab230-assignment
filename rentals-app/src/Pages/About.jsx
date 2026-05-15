@@ -1,9 +1,9 @@
 import { Container, Row, Col, Accordion } from "react-bootstrap";
-import loginPhoto from "../assets/login photo.png";
-import searchPhoto from "../assets/All filters .png"; 
-import detailPhoto from "../assets/detail page.png";
-import ratedPhoto from "../assets/RatedRentals.png";
-import registrationPhoto from "../assets/Registration Screen.png";
+import loginPhoto from "../assets/Login-Photo.png";
+import searchPhoto from "../assets/All-Filters.png"; 
+import detailPhoto from "../assets/Details-Page.png";
+import ratedPhoto from "../assets/Rated-Rentals.png";
+import registrationPhoto from "../assets/Registration-Screen.png";
 
 function About() {
   return (

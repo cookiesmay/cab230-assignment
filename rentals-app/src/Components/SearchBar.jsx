@@ -42,7 +42,6 @@ export default function SearchBar({ onSubmit, initialValues }) {
   useEffect(() => {
     Promise.all([getPropertyTypes(), getStates()])
       .then(([types, states]) => {
-        // Fallback to empty arrays if the API acts up
         setAvailableTypes(Array.isArray(types) ? types : []);
         setAvailableStates(Array.isArray(states) ? states : []);
       })
@@ -62,14 +61,11 @@ export default function SearchBar({ onSubmit, initialValues }) {
   const { value, checked } = e.target;
   
   setFilters(prev => {
-    // Safely get current array, or default to empty
     const currentTypes = prev.propertyTypes || []; 
     
     if (checked) {
-      // Add the new type to the array
       return { ...prev, propertyTypes: [...currentTypes, value] };
     } else {
-      // Remove the type from the array
       return { ...prev, propertyTypes: currentTypes.filter(t => t !== value) };
     }
   });

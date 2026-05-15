@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import homeImg from "../assets/homePagePhoto.jpg";
+import homeImg from "../assets/Home-Page-Photo.jpg";
 import SearchBar from "../Components/SearchBar.jsx";
 
 

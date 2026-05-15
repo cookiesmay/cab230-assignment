@@ -1,4 +1,3 @@
-// Rentals.jsx
 import { AllCommunityModule, themeBalham } from 'ag-grid-community';
 import { AgGridProvider, AgGridReact } from 'ag-grid-react';
 import { Container } from "react-bootstrap";
